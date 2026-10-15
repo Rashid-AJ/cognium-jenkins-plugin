@@ -1,0 +1,5 @@
+<?jelly escape-by-default='true'?>
+<div>
+    Runs Cognium SAST (<code>cognium-dev scan</code>) as a Jenkins Pipeline step. The plugin installs
+    <code>cognium-dev</code> into a temporary directory on the agent and does not change the global npm prefix.
+</div>

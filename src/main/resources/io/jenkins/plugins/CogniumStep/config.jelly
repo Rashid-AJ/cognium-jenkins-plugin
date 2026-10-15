@@ -1,0 +1,24 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:entry title="${%Path}" field="path">
+        <f:textbox default="."/>
+    </f:entry>
+    <f:entry title="${%Package version}" field="packageVersion">
+        <f:textbox default="latest"/>
+    </f:entry>
+    <f:entry title="${%Format}" field="format">
+        <f:textbox default="text"/>
+    </f:entry>
+    <f:entry title="${%Output}" field="output">
+        <f:textbox/>
+    </f:entry>
+    <f:entry title="${%Severity}" field="severity">
+        <f:textbox/>
+    </f:entry>
+    <f:entry title="${%Category}" field="category">
+        <f:textbox/>
+    </f:entry>
+    <f:entry title="${%Fail on findings}" field="failOnFindings">
+        <f:checkbox/>
+    </f:entry>
+</j:jelly>
