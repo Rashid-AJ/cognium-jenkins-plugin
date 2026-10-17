@@ -111,8 +111,10 @@ final class FakeCogniumEnvironment {
 
     private static String unixNpm() {
         return "#!/bin/sh\n"
-                + "set -e\n"
-                + "if [ \"${COGNIUM_TEST_NPM_FAIL}\" = \"1\" ]; then\n"
+                + "set -eu\n"
+                + "echo \"[fake-npm] WORKSPACE=${WORKSPACE:-<unset>}\"\n"
+                + "echo \"[fake-npm] PWD=$PWD\"\n"
+                + "if [ \"${COGNIUM_TEST_NPM_FAIL:-}\" = \"1\" ]; then\n"
                 + "  echo \"[fake-npm] failing install\" >&2\n"
                 + "  exit 1\n"
                 + "fi\n"
@@ -129,14 +131,15 @@ final class FakeCogniumEnvironment {
                 + "  echo \"[fake-npm] missing --prefix\" >&2\n"
                 + "  exit 1\n"
                 + "fi\n"
-                + "src=\"${WORKSPACE}/fake-bin\"\n"
+                + "src=\"${WORKSPACE:?WORKSPACE is not set}/fake-bin\"\n"
+                + "echo \"[fake-npm] source=$src\"\n"
+                + "echo \"[fake-npm] prefix=$prefix\"\n"
+                + "ls -la \"$src\"\n"
                 + "mkdir -p \"$prefix/node_modules/.bin\"\n"
-                + "cp \"$src/cognium-dev-template\" "
-                + "\"$prefix/node_modules/.bin/cognium-dev\"\n"
-                + "cp \"$src/cognium-dev-template.cmd\" "
-                + "\"$prefix/node_modules/.bin/cognium-dev.cmd\"\n"
+                + "cp \"$src/cognium-dev-template\" \"$prefix/node_modules/.bin/cognium-dev\"\n"
                 + "chmod +x \"$prefix/node_modules/.bin/cognium-dev\"\n"
-                + "echo \"[fake-npm] installed into $prefix\"\n";
+                + "test -x \"$prefix/node_modules/.bin/cognium-dev\"\n"
+                + "echo \"[fake-npm] executable created successfully\"\n";
     }
 
     private static String windowsNpm() {
