@@ -132,10 +132,10 @@ final class FakeCogniumEnvironment {
                 + "src=\"${WORKSPACE:?WORKSPACE is not set}/fake-bin\"\n"
                 + "echo \"[fake-npm] source=$src\"\n"
                 + "echo \"[fake-npm] prefix=$prefix\"\n"
-                + "ls -la \"$src\"\n"
-                + "mkdir -p \"$prefix/node_modules/.bin\"\n"
-                + "cp \"$src/cognium-dev-template\" \"$prefix/node_modules/.bin/cognium-dev\"\n"
-                + "chmod +x \"$prefix/node_modules/.bin/cognium-dev\"\n"
+                + "/bin/ls -la \"$src\"\n"
+                + "/bin/mkdir -p \"$prefix/node_modules/.bin\"\n"
+                + "/bin/cp \"$src/cognium-dev-template\" \"$prefix/node_modules/.bin/cognium-dev\"\n"
+                + "/bin/chmod +x \"$prefix/node_modules/.bin/cognium-dev\"\n"
                 + "test -x \"$prefix/node_modules/.bin/cognium-dev\"\n"
                 + "echo \"[fake-npm] executable created successfully\"\n";
     }
