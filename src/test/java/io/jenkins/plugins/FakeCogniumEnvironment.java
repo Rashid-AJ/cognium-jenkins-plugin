@@ -23,7 +23,9 @@ final class FakeCogniumEnvironment {
             extra = ", " + extraEnvAssignments;
         }
 
-        String pathExpr = isolatePath ? "fake + sep + (isUnix() ? fake : (env.SystemRoot + '\\\\System32'))" : "fake";
+        String pathExpr = isolatePath
+                ? "fake + sep + (isUnix() ? '/usr/bin:/bin' : (env.SystemRoot + '\\\\System32'))"
+                : "fake + sep + env.PATH";
 
         StringBuilder groovy = new StringBuilder();
 
@@ -137,7 +139,7 @@ final class FakeCogniumEnvironment {
                 + "/bin/cp \"$src/cognium-dev-template\" \"$prefix/node_modules/.bin/cognium-dev\"\n"
                 + "/bin/chmod +x \"$prefix/node_modules/.bin/cognium-dev\"\n"
                 + "test -x \"$prefix/node_modules/.bin/cognium-dev\"\n"
-                + "echo \"[fake-npm] executable created successfully\"\n";
+                + "echo \"[fake-npm] installed into $prefix\"\n";
     }
 
     private static String windowsNpm() {
