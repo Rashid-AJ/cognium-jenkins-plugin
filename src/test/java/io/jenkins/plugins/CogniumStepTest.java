@@ -191,7 +191,7 @@ class CogniumStepTest {
         WorkflowJob job = j.createProject(WorkflowJob.class, "cognium-node-version-" + System.nanoTime());
 
         job.setDefinition(new CpsFlowDefinition(
-                FakeCogniumEnvironment.scriptWithNodeVersion(true, false, null, nodeVersion, stepCall), true));
+                FakeCogniumEnvironment.scriptWithNodeVersion(true, true, null, nodeVersion, stepCall), true));
 
         QueueTaskFuture<WorkflowRun> future = job.scheduleBuild2(0);
 

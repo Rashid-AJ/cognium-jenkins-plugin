@@ -23,8 +23,9 @@ final class FakeCogniumEnvironment {
             extra = ", " + extraEnvAssignments;
         }
 
-        String pathExpr =
-                isolatePath ? "fake + sep + (isUnix() ? '/usr/bin:/bin' : (env.SystemRoot + '\\\\System32'))" : "fake";
+        String pathExpr = isolatePath
+                ? "fake + sep + (isUnix() ? '/usr/bin:/bin' : (env.SystemRoot + '\\\\System32'))"
+                : "fake + sep + env.PATH";
 
         StringBuilder groovy = new StringBuilder();
 
