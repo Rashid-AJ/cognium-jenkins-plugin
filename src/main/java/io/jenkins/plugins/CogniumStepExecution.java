@@ -217,7 +217,27 @@ public class CogniumStepExecution extends SynchronousNonBlockingStepExecution<Vo
     private static int launch(
             Launcher launcher, FilePath workspace, EnvVars env, TaskListener listener, List<String> command)
             throws IOException, InterruptedException {
-        ArgumentListBuilder args = CogniumCli.processArguments(launcher.isUnix(), command);
+
+        ArgumentListBuilder args;
+
+        if (launcher.isUnix() && !command.isEmpty() && "npm".equals(command.get(0))) {
+
+            // Resolve npm using the PATH supplied by the Jenkins Pipeline.
+            // This also allows the test harness to select its fake npm.
+            args = new ArgumentListBuilder();
+            args.add("/bin/sh");
+            args.add("-c");
+            args.add("exec \"$@\"");
+            args.add("sh");
+
+            for (String argument : command) {
+                args.add(argument);
+            }
+
+        } else {
+            args = CogniumCli.processArguments(launcher.isUnix(), command);
+        }
+
         return launcher.launch()
                 .pwd(workspace)
                 .cmds(args)
