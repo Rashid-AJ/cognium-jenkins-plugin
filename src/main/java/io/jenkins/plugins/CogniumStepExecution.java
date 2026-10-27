@@ -106,13 +106,28 @@ public class CogniumStepExecution extends SynchronousNonBlockingStepExecution<Vo
         int exitCode;
 
         try {
-            exitCode = launcher.launch()
-                    .pwd(workspace)
-                    .cmds(CogniumCli.processArguments(launcher.isUnix(), CogniumCli.nodeVersionCheckCommand()))
-                    .envs(env)
-                    .stdout(stdout)
-                    .stderr(listener.getLogger())
-                    .join();
+            if (launcher.isUnix()) {
+                ArgumentListBuilder nodeCommand = new ArgumentListBuilder();
+                nodeCommand.add("/bin/sh");
+                nodeCommand.add("-c");
+                nodeCommand.add("exec node -v");
+
+                exitCode = launcher.launch()
+                        .pwd(workspace)
+                        .cmds(nodeCommand)
+                        .envs(env)
+                        .stdout(stdout)
+                        .stderr(listener.getLogger())
+                        .join();
+            } else {
+                exitCode = launcher.launch()
+                        .pwd(workspace)
+                        .cmds(CogniumCli.processArguments(false, CogniumCli.nodeVersionCheckCommand()))
+                        .envs(env)
+                        .stdout(stdout)
+                        .stderr(listener.getLogger())
+                        .join();
+            }
         } catch (IOException e) {
             throw new AbortException("Node.js is required on the Jenkins agent but was not found in PATH. "
                     + "Install Node.js >= "
