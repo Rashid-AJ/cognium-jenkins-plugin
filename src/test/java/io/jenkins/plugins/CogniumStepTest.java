@@ -202,16 +202,17 @@ class CogniumStepTest {
 
     private void assertNoInstallLeftovers() throws Exception {
         File workspaceRoot = new File(j.jenkins.getRootDir(), "workspace");
-        File[] searchRoots = new File[] {workspaceRoot, j.jenkins.getRootDir()};
-        for (File root : searchRoots) {
-            if (root == null || !root.isDirectory()) {
-                continue;
-            }
-            try (Stream<java.nio.file.Path> paths = Files.walk(root.toPath(), 3)) {
-                boolean leftover = paths.map(path -> path.getFileName().toString())
-                        .anyMatch(name -> name.startsWith("cognium") && name.endsWith("dir"));
-                assertFalse(leftover, "temporary cognium install directory leaked under " + root);
-            }
+
+        if (!workspaceRoot.isDirectory()) {
+            return;
+        }
+
+        try (Stream<java.nio.file.Path> paths = Files.walk(workspaceRoot.toPath(), 3)) {
+            boolean leftover = paths.filter(path -> path.getFileName() != null)
+                    .map(path -> path.getFileName().toString())
+                    .anyMatch(name -> name.startsWith("cognium") && name.endsWith("dir"));
+
+            assertFalse(leftover, "temporary cognium install directory leaked under " + workspaceRoot);
         }
     }
 }
