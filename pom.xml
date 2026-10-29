@@ -17,7 +17,7 @@
 
   <name>Cognium SAST</name>
   <description>Jenkins Pipeline step that installs cognium-dev locally on the agent and runs Cognium SAST scans.</description>
-  <url>https://cognium.dev</url>
+  <url>https://github.com/cogniumhq/CogniumDEV-jenkins-plugin</url>
   <inceptionYear>2026</inceptionYear>
 
   <organization>

@@ -3,7 +3,8 @@ effective-pom.xml
 
 # mvn hpi:run
 work
-
+.hpi
+*.jpi
 # IntelliJ IDEA project files
 *.iml
 *.iws
@@ -14,3 +15,7 @@ work
 .settings
 .classpath
 .project
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
