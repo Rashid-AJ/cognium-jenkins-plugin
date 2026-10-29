@@ -58,13 +58,10 @@
     <revision>1.0</revision>
     <changelist>-SNAPSHOT</changelist>
 
-    <!-- Jenkins baseline documentation:
-             https://www.jenkins.io/doc/developer/plugin-development/choosing-jenkins-baseline/ -->
     <jenkins.baseline>2.528</jenkins.baseline>
     <jenkins.version>${jenkins.baseline}.3</jenkins.version>
 
-    <!-- Keep this pointed at the current repository until Jenkins hosting is approved. -->
-    <gitHubRepo>cogniumhq/cognium</gitHubRepo>
+    <gitHubRepo>cogniumhq/CogniumDEV-jenkins-plugin</gitHubRepo>
 
     <spotless.check.skip>false</spotless.check.skip>
     <ban-junit4-imports.skip>false</ban-junit4-imports.skip>
@@ -85,13 +82,11 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- Runtime dependency for the Jenkins Pipeline step API. -->
     <dependency>
       <groupId>org.jenkins-ci.plugins.workflow</groupId>
       <artifactId>workflow-step-api</artifactId>
     </dependency>
 
-    <!-- Pipeline runtime dependencies used by the test harness. -->
     <dependency>
       <groupId>org.jenkins-ci.plugins.workflow</groupId>
       <artifactId>workflow-basic-steps</artifactId>
